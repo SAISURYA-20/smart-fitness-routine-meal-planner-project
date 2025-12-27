@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Smart Fitness Routine & Meal Planner 🏋️‍♂️🥗
 
 A full-stack web application that provides personalized fitness routines and meal plans based on user goals. Built with Angular 16, Node.js (TypeScript), Express, and MySQL.
@@ -316,3 +317,31 @@ This project is licensed under the MIT License.
 - Chart.js for data visualization
 - Express.js for backend framework
 - MySQL for database management
+=======
+# Smart Fitness Routine & Meal Planner
+
+## Objective
+A full-stack web application that provides personalized fitness routines and meal plans based on user goals.
+
+## Tech Stack
+- Frontend: Angular
+- Backend: Node.js (TypeScript, Express)
+- Database: MySQL
+
+## Features
+- User authentication
+- Profile & goal management
+- Weekly workout routine generation
+- Meal planning with calorie tracking
+- Progress tracking dashboard
+- Role-based access control
+
+## Project Structure
+smart-fitness-routine-meal-planner/
+├── backend/
+├── frontend/
+└── README.md
+
+## Status
+Capstone Project – In Progress
+>>>>>>> 519f709e43c7e95fa57c44864e52a4317045d85b

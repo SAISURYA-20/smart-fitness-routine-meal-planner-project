@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ============================================
 # Smart Fitness Planner - Git Ignore
 # ============================================
@@ -116,3 +117,11 @@ temp/
 *.crt
 secrets/
 credentials/
+=======
+node_modules/
+dist/
+.env
+*.log
+.DS_Store
+
+>>>>>>> 519f709e43c7e95fa57c44864e52a4317045d85b
