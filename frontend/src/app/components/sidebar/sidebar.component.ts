@@ -39,18 +39,6 @@ import { AuthService } from '../../services/auth.service';
             <span class="nav-text">Progress</span>
           </a>
         </div>
-
-        <div class="nav-section">
-          <span class="nav-label">ACCOUNT</span>
-          <a routerLink="/profile" routerLinkActive="active" class="nav-item">
-            <mat-icon class="nav-icon">person</mat-icon>
-            <span class="nav-text">Profile</span>
-          </a>
-          <a routerLink="/settings" routerLinkActive="active" class="nav-item">
-            <mat-icon class="nav-icon">settings</mat-icon>
-            <span class="nav-text">Settings</span>
-          </a>
-        </div>
       </nav>
 
       <div class="sidebar-footer">

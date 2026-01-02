@@ -38,7 +38,6 @@ import { ProgressTrackerComponent } from './components/progress-tracker/progress
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
-import { SettingsComponent } from './components/settings/settings.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
@@ -54,7 +53,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     NavbarComponent,
     SidebarComponent,
     HeaderComponent,
-    SettingsComponent,
     DashboardComponent
   ],
   imports: [

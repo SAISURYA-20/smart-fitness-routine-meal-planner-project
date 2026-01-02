@@ -70,6 +70,45 @@ import { AuthService } from '../../services/auth.service';
                 <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">Minimum 6 characters</mat-error>
               </mat-form-field>
             </div>
+            <div class="form-row">
+              <div class="form-group half">
+                <label>Age</label>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="age" type="number" placeholder="Your age">
+                  <mat-icon matPrefix>cake</mat-icon>
+                  <mat-error>Age is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-group half">
+                <label>Gender</label>
+                <mat-form-field appearance="outline">
+                  <mat-select formControlName="gender" placeholder="Select gender">
+                    <mat-option value="male">Male</mat-option>
+                    <mat-option value="female">Female</mat-option>
+                    <mat-option value="other">Other</mat-option>
+                  </mat-select>
+                  <mat-icon matPrefix>wc</mat-icon>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group half">
+                <label>Height (cm)</label>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="height" type="number" placeholder="Height in cm">
+                  <mat-icon matPrefix>height</mat-icon>
+                  <mat-error>Height is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="form-group half">
+                <label>Weight (kg)</label>
+                <mat-form-field appearance="outline">
+                  <input matInput formControlName="weight" type="number" placeholder="Weight in kg">
+                  <mat-icon matPrefix>monitor_weight</mat-icon>
+                  <mat-error>Weight is required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
             <div class="form-group">
               <label>Fitness Goal</label>
               <mat-form-field appearance="outline">
@@ -173,11 +212,12 @@ import { AuthService } from '../../services/auth.service';
     }
     .auth-card {
       width: 100%;
-      max-width: 420px;
+      max-width: 480px;
       background: white;
       border-radius: 24px;
       padding: 40px;
       box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      box-sizing: border-box;
     }
     .auth-header { margin-bottom: 28px; }
     .auth-header h2 {
@@ -195,7 +235,22 @@ import { AuthService } from '../../services/auth.service';
       margin-bottom: 8px;
       font-size: 0.9rem;
     }
+    .form-row {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+    }
+    .form-group.half {
+      flex: 1;
+      min-width: 0;
+    }
+    .form-group.half mat-form-field {
+      width: 100%;
+    }
     mat-form-field { width: 100%; }
+    ::ng-deep .form-group.half .mat-mdc-form-field-infix {
+      min-width: 80px !important;
+    }
     .goal-icon { margin-right: 8px; font-size: 20px; }
     .goal-icon.loss { color: #ef4444; }
     .goal-icon.gain { color: #5e35b1; }
@@ -239,6 +294,10 @@ export class RegisterComponent {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      age: ['', [Validators.required, Validators.min(10), Validators.max(120)]],
+      gender: ['', Validators.required],
+      height: ['', [Validators.required, Validators.min(50), Validators.max(300)]],
+      weight: ['', [Validators.required, Validators.min(20), Validators.max(500)]],
       goal: ['maintenance', Validators.required]
     });
   }

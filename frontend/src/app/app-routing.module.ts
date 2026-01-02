@@ -7,7 +7,6 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { WorkoutRoutineComponent } from './components/workout-routine/workout-routine.component';
 import { MealPlannerComponent } from './components/meal-planner/meal-planner.component';
 import { ProgressTrackerComponent } from './components/progress-tracker/progress-tracker.component';
-import { SettingsComponent } from './components/settings/settings.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
@@ -21,7 +20,6 @@ const routes: Routes = [
   { path: 'workouts', component: WorkoutRoutineComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['user', 'trainer', 'admin'] } },
   { path: 'meals', component: MealPlannerComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['user', 'trainer', 'admin'] } },
   { path: 'progress', component: ProgressTrackerComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['user', 'trainer', 'admin'] } },
-  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard, RoleGuard], data: { roles: ['user', 'trainer', 'admin'] } },
   { path: '**', redirectTo: '' }
 ];
 
