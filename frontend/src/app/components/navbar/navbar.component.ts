@@ -19,63 +19,7 @@ import { AuthService } from '../../services/auth.service';
       </div>
     </mat-toolbar>
 
-    <!-- Private Navbar -->
-    <header class="app-header" *ngIf="authService.isLoggedIn()">
-      <div class="header-content">
-        <a routerLink="/profile" class="logo">
-          <div class="logo-icon"><mat-icon>fitness_center</mat-icon></div>
-          <span class="logo-text">FitPlanner</span>
-        </a>
-        <nav class="nav-menu">
-          <a routerLink="/profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item">
-            <mat-icon>space_dashboard</mat-icon>
-            <span>Dashboard</span>
-          </a>
-          <a routerLink="/workouts" routerLinkActive="active" class="nav-item">
-            <mat-icon>fitness_center</mat-icon>
-            <span>Workouts</span>
-          </a>
-          <a routerLink="/meals" routerLinkActive="active" class="nav-item">
-            <mat-icon>restaurant</mat-icon>
-            <span>Nutrition</span>
-          </a>
-          <a routerLink="/progress" routerLinkActive="active" class="nav-item">
-            <mat-icon>analytics</mat-icon>
-            <span>Progress</span>
-          </a>
-        </nav>
-        <div class="header-actions">
-          <button class="notification-btn">
-            <mat-icon>notifications_none</mat-icon>
-          </button>
-          <div class="user-dropdown" [matMenuTriggerFor]="userMenu">
-            <div class="user-avatar">
-              {{ getInitials() }}
-            </div>
-            <div class="user-info">
-              <span class="user-name">{{ (authService.currentUser$ | async)?.name || 'User' }}</span>
-              <span class="user-role">{{ getRoleLabel() }}</span>
-            </div>
-            <mat-icon class="chevron">expand_more</mat-icon>
-          </div>
-          <mat-menu #userMenu="matMenu" xPosition="before">
-            <button mat-menu-item routerLink="/profile">
-              <mat-icon>person_outline</mat-icon>
-              <span>My Profile</span>
-            </button>
-            <button mat-menu-item routerLink="/progress">
-              <mat-icon>insights</mat-icon>
-              <span>My Progress</span>
-            </button>
-            <mat-divider></mat-divider>
-            <button mat-menu-item (click)="logout()" class="logout-item">
-              <mat-icon>logout</mat-icon>
-              <span>Sign Out</span>
-            </button>
-          </mat-menu>
-        </div>
-      </div>
-    </header>
+    <!-- Private Navbar logic moved to HeaderComponent -->
   `,
   styles: [`
     /* Public Navbar */
@@ -207,7 +151,7 @@ import { AuthService } from '../../services/auth.service';
   `]
 })
 export class NavbarComponent {
-  constructor(public authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) { }
 
   logout(): void {
     this.authService.logout();
