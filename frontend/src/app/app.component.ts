@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   template: `
-    <app-navbar *ngIf="!authService.isLoggedIn()"></app-navbar>
+    <app-navbar *ngIf="shouldShowNavbar()"></app-navbar>
     <div class="app-layout" *ngIf="authService.isLoggedIn()">
       <app-sidebar></app-sidebar>
       <main class="main-content">
@@ -45,5 +46,13 @@ import { AuthService } from './services/auth.service';
   `]
 })
 export class AppComponent {
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private router: Router) { }
+
+  shouldShowNavbar(): boolean {
+    // Show navbar only if logged out AND on specific public pages (landing)
+    // Hide on login/register to prevent logo duplication
+    if (this.authService.isLoggedIn()) return false;
+    const url = this.router.url;
+    return url === '/' || url.startsWith('/?');
+  }
 }

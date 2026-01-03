@@ -228,3 +228,39 @@ export const getProgress = async (req: Request, res: Response, next: NextFunctio
     next(error);
   }
 };
+
+export const updateMeal = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const userId = req.user?.userId;
+    const { day, mealId, updates } = req.body;
+
+    const [rows] = await pool.query<RowDataPacket[]>(
+      'SELECT meals FROM workout_meal_plans WHERE user_id = ? AND day = ?',
+      [userId, day]
+    );
+
+    if (rows.length === 0) {
+      throw new AppError('Plan not found for this day', 404);
+    }
+
+    let meals = rows[0].meals as any[]; // parsed automatically if JSON column, or need JSON.parse
+    if (typeof meals === 'string') meals = JSON.parse(meals);
+
+    const mealIndex = meals.findIndex((m: any) => m.id === mealId);
+    if (mealIndex === -1) {
+      throw new AppError('Meal not found', 404);
+    }
+
+    // Update meal fields
+    meals[mealIndex] = { ...meals[mealIndex], ...updates };
+
+    await pool.query(
+      'UPDATE workout_meal_plans SET meals = ? WHERE user_id = ? AND day = ?',
+      [JSON.stringify(meals), userId, day]
+    );
+
+    res.json({ message: 'Meal updated successfully', meals });
+  } catch (error) {
+    next(error);
+  }
+};

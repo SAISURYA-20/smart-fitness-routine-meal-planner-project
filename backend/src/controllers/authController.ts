@@ -17,6 +17,10 @@ export const register = async (req: Request, res: Response, next: NextFunction):
       throw new AppError('Email already registered', 400);
     }
 
+    if (!name || !age || !gender || !height || !weight || !goal) {
+      throw new AppError('All profile fields are required', 400);
+    }
+
     const hashedPassword = await bcrypt.hash(password, 12);
     const userRole = role === 'trainer' || role === 'admin' ? role : 'user';
     const userGoal = goal || 'maintenance';
@@ -126,6 +130,10 @@ export const updateProfile = async (req: Request, res: Response, next: NextFunct
   try {
     const userId = req.user?.userId;
     const { name, age, gender, height, weight, goal } = req.body;
+
+    if (!name || !age || !gender || !height || !weight || !goal) {
+      throw new AppError('All profile fields are required', 400);
+    }
 
     // Check if goal has changed
     const [currentUser] = await pool.query<RowDataPacket[]>('SELECT goal FROM users WHERE id = ?', [userId]);

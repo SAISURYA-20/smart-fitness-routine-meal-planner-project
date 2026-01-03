@@ -41,6 +41,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PlanDialogComponent } from './components/plan-dialog/plan-dialog.component';
+import { MealEditDialogComponent } from './components/meal-planner/meal-edit-dialog/meal-edit-dialog.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { PlanDialogComponent } from './components/plan-dialog/plan-dialog.compon
     SidebarComponent,
     HeaderComponent,
     DashboardComponent,
-    PlanDialogComponent
+    PlanDialogComponent,
+    MealEditDialogComponent
   ],
   imports: [
     BrowserModule,
