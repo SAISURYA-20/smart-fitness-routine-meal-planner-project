@@ -49,6 +49,7 @@ export interface DayPlan {
   day: string;
   exercises: Exercise[];
   meals: Meal[];
+  schedule: ScheduleItem[];
   completed_status: CompletedStatus;
 }
 
@@ -71,9 +72,6 @@ export interface ProgressSummary {
 }
 
 
-// ... existing User interface ...
-
-// [ADD THIS INTERFACE]
 export interface ScheduleItem {
   time: string;
   activity: string;
@@ -81,14 +79,6 @@ export interface ScheduleItem {
   type: 'meal' | 'workout' | 'other';
 }
 
-export interface DayPlan {
-  id: number;
-  user_id: number;
-  day: string;
-  exercises: Exercise[];
-  meals: Meal[];
-  schedule: ScheduleItem[]; // [ADD THIS LINE]
-  completed_status: CompletedStatus;
-}
 
-// ... rest of the file ...
+
+

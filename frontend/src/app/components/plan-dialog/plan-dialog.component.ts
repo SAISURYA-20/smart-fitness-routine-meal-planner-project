@@ -1,17 +1,3 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-plan-dialog',
-//   templateUrl: './plan-dialog.component.html',
-//   styleUrls: ['./plan-dialog.component.css']
-// })
-// export class PlanDialogComponent {
-
-// }
-
-
-
-
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DayPlan } from '../../models/user.model';
