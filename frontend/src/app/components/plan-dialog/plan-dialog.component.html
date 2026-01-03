@@ -9,7 +9,7 @@
 
     <mat-dialog-content>
         <div class="timeline">
-            <div class="timeline-item" *ngFor="let item of data.schedule">
+            <div class="timeline-item" *ngFor="let item of data.schedule" [class.past-item]="isPast(item.time)">
                 <div class="time-col">
                     <span class="time">{{ item.time }}</span>
                 </div>

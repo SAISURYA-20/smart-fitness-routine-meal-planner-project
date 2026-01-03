@@ -11,10 +11,24 @@ export class PlanDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<PlanDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DayPlan
-  ) {}
+  ) { }
 
   onClose(): void {
     this.dialogRef.close();
+  }
+
+  isPast(timeStr: string): boolean {
+    const now = new Date();
+    const [time, period] = timeStr.split(' ');
+    let [hours, minutes] = time.split(':').map(Number);
+
+    if (period === 'PM' && hours !== 12) hours += 12;
+    if (period === 'AM' && hours === 12) hours = 0;
+
+    const taskTime = new Date();
+    taskTime.setHours(hours, minutes, 0, 0);
+
+    return now > taskTime;
   }
 
   getIcon(type: string): string {
