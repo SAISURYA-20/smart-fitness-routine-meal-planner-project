@@ -69,3 +69,26 @@ export interface ProgressSummary {
   overallMealProgress: number;
   targetCalories: number;
 }
+
+
+// ... existing User interface ...
+
+// [ADD THIS INTERFACE]
+export interface ScheduleItem {
+  time: string;
+  activity: string;
+  detail: string;
+  type: 'meal' | 'workout' | 'other';
+}
+
+export interface DayPlan {
+  id: number;
+  user_id: number;
+  day: string;
+  exercises: Exercise[];
+  meals: Meal[];
+  schedule: ScheduleItem[]; // [ADD THIS LINE]
+  completed_status: CompletedStatus;
+}
+
+// ... rest of the file ...

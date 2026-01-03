@@ -1,0 +1,44 @@
+<!-- <p>plan-dialog works!</p> -->
+
+
+<div class="dialog-container">
+    <div class="dialog-header">
+        <h2 mat-dialog-title>Daily Agenda: {{ data.day }}</h2>
+        <span class="date-today">{{ data.schedule.length || 0 }} Activities Planned</span>
+    </div>
+
+    <mat-dialog-content>
+        <div class="timeline">
+            <div class="timeline-item" *ngFor="let item of data.schedule">
+                <div class="time-col">
+                    <span class="time">{{ item.time }}</span>
+                </div>
+
+                <div class="marker-col">
+                    <div class="line"></div>
+                    <div class="dot" [ngClass]="item.type">
+                        <mat-icon>{{ getIcon(item.type) }}</mat-icon>
+                    </div>
+                </div>
+
+                <div class="content-col">
+                    <div class="card" [ngClass]="item.type">
+                        <div class="card-header">
+                            <span class="activity-name">{{ item.activity }}</span>
+                        </div>
+                        <p class="detail">{{ item.detail }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="empty-state" *ngIf="!data.schedule || data.schedule.length === 0">
+                <mat-icon>event_busy</mat-icon>
+                <p>No agenda generated for today yet.</p>
+            </div>
+        </div>
+    </mat-dialog-content>
+
+    <div mat-dialog-actions align="end">
+        <button mat-raised-button color="primary" (click)="onClose()">Got it</button>
+    </div>
+</div>

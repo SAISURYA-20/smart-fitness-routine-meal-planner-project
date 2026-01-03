@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -39,6 +40,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PlanDialogComponent } from './components/plan-dialog/plan-dialog.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     NavbarComponent,
     SidebarComponent,
     HeaderComponent,
-    DashboardComponent
+    DashboardComponent,
+    PlanDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     AppRoutingModule,
     MatToolbarModule, MatButtonModule, MatCardModule, MatInputModule, MatFormFieldModule,
     MatSelectModule, MatIconModule, MatTabsModule, MatCheckboxModule, MatProgressBarModule,
-    MatSnackBarModule, MatMenuModule, MatSidenavModule, MatListModule, MatExpansionModule,
+    MatSnackBarModule, MatDialogModule, MatMenuModule, MatSidenavModule, MatListModule, MatExpansionModule,
     MatChipsModule, MatProgressSpinnerModule, MatDividerModule, MatTooltipModule, NgChartsModule
   ],
   providers: [
