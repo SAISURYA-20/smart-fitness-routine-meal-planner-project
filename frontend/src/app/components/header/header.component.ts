@@ -15,14 +15,6 @@ import { AuthService } from '../../services/auth.service';
         </div>
       </div>
       <div class="header-right">
-        <div class="search-box">
-          <mat-icon>search</mat-icon>
-          <input type="text" placeholder="Search...">
-        </div>
-        <button class="icon-btn notification-btn">
-          <mat-icon>notifications_none</mat-icon>
-          <span class="notification-badge">3</span>
-        </button>
         <div class="user-dropdown" [matMenuTriggerFor]="userMenu">
           <div class="user-avatar">{{ getInitials() }}</div>
           <mat-icon class="dropdown-arrow">keyboard_arrow_down</mat-icon>
@@ -40,10 +32,7 @@ import { AuthService } from '../../services/auth.service';
             <mat-icon>person_outline</mat-icon>
             <span>My Profile</span>
           </button>
-          <button mat-menu-item routerLink="/settings">
-            <mat-icon>settings</mat-icon>
-            <span>Settings</span>
-          </button>
+
           <mat-divider></mat-divider>
           <button mat-menu-item (click)="logout()" class="logout-menu-item">
             <mat-icon>logout</mat-icon>
@@ -126,61 +115,7 @@ import { AuthService } from '../../services/auth.service';
 
     .header-right { display: flex; align-items: center; gap: 16px; }
 
-    .search-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: #f1f5f9;
-      border-radius: 10px;
-      padding: 10px 16px;
-      width: 240px;
-    }
 
-    .search-box mat-icon { color: #94a3b8; font-size: 20px; }
-
-    .search-box input {
-      border: none;
-      background: transparent;
-      outline: none;
-      font-size: 0.9rem;
-      color: #0f172a;
-      width: 100%;
-    }
-
-    .search-box input::placeholder { color: #94a3b8; }
-
-    .icon-btn {
-      width: 42px;
-      height: 42px;
-      border: 1px solid #e2e8f0;
-      background: white;
-      border-radius: 10px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      transition: all 0.2s;
-    }
-
-    .icon-btn:hover { background: #f8fafc; border-color: #cbd5e1; }
-    .icon-btn mat-icon { color: #64748b; }
-
-    .notification-badge {
-      position: absolute;
-      top: -4px;
-      right: -4px;
-      width: 18px;
-      height: 18px;
-      background: #ef4444;
-      color: white;
-      font-size: 0.65rem;
-      font-weight: 600;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
 
     .user-dropdown {
       display: flex;
@@ -346,14 +281,12 @@ import { AuthService } from '../../services/auth.service';
       gap: 8px;
     }
 
-    @media (max-width: 1024px) {
-      .search-box { width: 180px; }
-    }
+
 
     @media (max-width: 768px) {
       .app-header { padding: 0 16px; }
       .mobile-menu-btn { display: flex; }
-      .search-box { display: none; }
+
       .mobile-menu-overlay { display: block; }
     }
   `]
@@ -361,7 +294,7 @@ import { AuthService } from '../../services/auth.service';
 export class HeaderComponent {
   mobileMenuOpen = false;
 
-  constructor(public authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) { }
 
   getCurrentPageTitle(): string {
     const path = this.router.url;

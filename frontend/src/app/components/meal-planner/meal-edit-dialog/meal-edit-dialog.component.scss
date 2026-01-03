@@ -1,0 +1,17 @@
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 400px;
+    padding-top: 8px;
+}
+
+.macros-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+mat-form-field {
+    width: 100%;
+}

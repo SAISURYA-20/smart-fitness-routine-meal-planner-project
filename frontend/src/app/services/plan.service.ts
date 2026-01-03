@@ -6,7 +6,11 @@ import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class PlanService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+
+  updateMeal(day: string, mealId: string, updates: any): Observable<any> {
+    return this.http.put(`${environment.apiUrl}/meal`, { day, mealId, updates });
+  }
 
   generatePlan(): Observable<{ message: string; plan: DayPlan[] }> {
     return this.http.post<{ message: string; plan: DayPlan[] }>(`${environment.apiUrl}/plans/generate`, {});

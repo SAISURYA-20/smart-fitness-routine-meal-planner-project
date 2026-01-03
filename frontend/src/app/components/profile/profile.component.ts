@@ -84,32 +84,36 @@ import { User } from '../../models/user.model';
                   <label>Age</label>
                   <mat-form-field appearance="outline">
                     <input matInput formControlName="age" type="number" placeholder="Your age">
+                    <mat-error>Age is required (10-100)</mat-error>
                   </mat-form-field>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group">
-                  <label>Gender</label>
+                  <label>Gender *</label>
                   <mat-form-field appearance="outline">
                     <mat-select formControlName="gender" placeholder="Select gender">
                       <mat-option value="male">Male</mat-option>
                       <mat-option value="female">Female</mat-option>
                       <mat-option value="other">Other</mat-option>
                     </mat-select>
+                    <mat-error>Gender is required</mat-error>
                   </mat-form-field>
                 </div>
                 <div class="form-group">
-                  <label>Height (cm)</label>
+                  <label>Height (cm) *</label>
                   <mat-form-field appearance="outline">
                     <input matInput formControlName="height" type="number" placeholder="Height in cm">
+                    <mat-error>Height is required</mat-error>
                   </mat-form-field>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group">
-                  <label>Weight (kg)</label>
+                  <label>Weight (kg) *</label>
                   <mat-form-field appearance="outline">
                     <input matInput formControlName="weight" type="number" placeholder="Weight in kg">
+                    <mat-error>Weight is required</mat-error>
                   </mat-form-field>
                 </div>
                 <div class="form-group">
@@ -223,10 +227,10 @@ export class ProfileComponent implements OnInit {
   constructor(private fb: FormBuilder, private authService: AuthService, private snackBar: MatSnackBar) {
     this.profileForm = this.fb.group({
       name: ['', Validators.required],
-      age: [null],
-      gender: [''],
-      height: [null],
-      weight: [null],
+      age: [null, [Validators.required, Validators.min(10), Validators.max(100)]],
+      gender: ['', Validators.required],
+      height: [null, [Validators.required, Validators.min(100), Validators.max(250)]],
+      weight: [null, [Validators.required, Validators.min(30), Validators.max(300)]],
       goal: ['maintenance', Validators.required]
     });
   }

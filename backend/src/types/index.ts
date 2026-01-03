@@ -39,12 +39,20 @@ export interface CompletedStatus {
   meals: string[];
 }
 
+export interface ScheduleItem {
+  time: string;
+  activity: string;
+  detail: string;
+  type: 'meal' | 'workout' | 'other';
+}
+
 export interface WorkoutMealPlan {
   id: number;
   user_id: number;
   day: string;
   exercises: Exercise[];
   meals: Meal[];
+  schedule: ScheduleItem[];
   completed_status: CompletedStatus;
   created_at: Date;
   updated_at: Date;

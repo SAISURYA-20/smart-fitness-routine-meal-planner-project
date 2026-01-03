@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlanService } from '../../services/plan.service';
 import { DayPlan, Meal } from '../../models/user.model';
+import { MatDialog } from '@angular/material/dialog';
+import { MealEditDialogComponent } from './meal-edit-dialog/meal-edit-dialog.component';
 
 @Component({
   selector: 'app-meal-planner',
@@ -21,7 +23,7 @@ export class MealPlannerComponent implements OnInit {
     { value: 'snack', label: 'Snacks', icon: 'cookie', color: 'pink' }
   ];
 
-  constructor(private planService: PlanService, private snackBar: MatSnackBar) {}
+  constructor(private planService: PlanService, private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
   ngOnInit(): void { this.loadPlan(); }
 
@@ -54,6 +56,25 @@ export class MealPlannerComponent implements OnInit {
     this.planService.markMealConsumed(day, mealId).subscribe({
       next: (res) => { const d = this.weeklyPlan.find(p => p.day === day); if (d) d.completed_status = res.completed_status; },
       error: () => this.snackBar.open('Failed to update', 'Close', { duration: 3000 })
+    });
+  }
+
+  editMeal(day: DayPlan, meal: Meal): void {
+    const dialogRef = this.dialog.open(MealEditDialogComponent, {
+      width: '400px',
+      data: { meal }
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.planService.updateMeal(day.day, meal.id, result).subscribe({
+          next: () => {
+            Object.assign(meal, result); // Update local model
+            this.snackBar.open('Meal updated', 'Close', { duration: 3000 });
+          },
+          error: () => this.snackBar.open('Failed to update meal', 'Close', { duration: 3000 })
+        });
+      }
     });
   }
 

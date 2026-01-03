@@ -1,0 +1,160 @@
+.dialog-container {
+  min-width: 450px;
+  max-width: 600px;
+  padding: 20px;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+
+  h2 {
+    margin: 0;
+    color: #333;
+    font-weight: 600;
+  }
+
+  .date-today {
+    color: #666;
+    font-size: 0.9rem;
+  }
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+.timeline-item {
+  display: flex;
+  min-height: 80px;
+
+  .time-col {
+    width: 80px;
+    text-align: right;
+    padding-right: 15px;
+    padding-top: 5px;
+
+    .time {
+      font-weight: 600;
+      color: #444;
+      font-size: 0.9rem;
+    }
+  }
+
+  .marker-col {
+    width: 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .line {
+      position: absolute;
+      top: 25px;
+      bottom: -25px;
+      /* Connects to next item */
+      width: 2px;
+      background-color: #e0e0e0;
+      z-index: 0;
+    }
+
+
+
+    .dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      color: white;
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+
+      &.meal {
+        background-color: #FF9800;
+      }
+
+      &.workout {
+        background-color: #2196F3;
+      }
+
+      &.other {
+        background-color: #9C27B0;
+      }
+    }
+  }
+
+  .content-col {
+    flex: 1;
+    padding-bottom: 25px;
+    padding-left: 15px;
+
+    .card {
+      background: #f9f9f9;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border-left: 4px solid #ccc;
+
+      &.meal {
+        border-left-color: #FF9800;
+        background: #fff8e1;
+      }
+
+      &.workout {
+        border-left-color: #2196F3;
+        background: #e3f2fd;
+      }
+
+      &.other {
+        border-left-color: #9C27B0;
+        background: #f3e5f5;
+      }
+
+      .activity-name {
+        font-weight: 600;
+        font-size: 1rem;
+        color: #333;
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .detail {
+        margin: 0;
+        color: #666;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+.timeline-item:last-child .marker-col .line {
+  display: none;
+}
+
+.timeline-item.past-item {
+  opacity: 0.5;
+  filter: grayscale(100%);
+  pointer-events: none;
+  /* Optional: prevent interaction if there were buttons */
+
+  .card {
+    background: #f0f0f0 !important;
+    border-left-color: #ccc !important;
+  }
+
+  .dot {
+    background-color: #ccc !important;
+  }
+}

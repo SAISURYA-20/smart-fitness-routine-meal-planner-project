@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { PlanService } from '../../services/plan.service';
-import { User, ProgressSummary, DayProgress } from '../../models/user.model';
+import { User, ProgressSummary, DayProgress, DayPlan } from '../../models/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { PlanDialogComponent } from '../plan-dialog/plan-dialog.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,7 +27,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
         <div class="stat-card">
           <div class="stat-header">
             <div class="stat-icon blue"><mat-icon>fitness_center</mat-icon></div>
-            <span class="stat-trend up">+12%</span>
           </div>
           <div class="stat-value">{{ summary.overallExerciseProgress }}%</div>
           <div class="stat-label">Workout Progress</div>
@@ -37,7 +38,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
         <div class="stat-card">
           <div class="stat-header">
             <div class="stat-icon green"><mat-icon>restaurant</mat-icon></div>
-            <span class="stat-trend up">+8%</span>
           </div>
           <div class="stat-value">{{ summary.overallMealProgress }}%</div>
           <div class="stat-label">Nutrition Progress</div>
@@ -413,11 +413,15 @@ export class DashboardComponent implements OnInit {
   todayProgress: DayProgress | null = null;
   generating = false;
 
+  // Create a local variable to store the plan temporarily to find today's plan
+  weeklyPlan: DayPlan[] = [];
+
   constructor(
     private authService: AuthService,
     private planService: PlanService,
-    private snackBar: MatSnackBar
-  ) {}
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.authService.getProfile().subscribe(res => this.user = res.user);
@@ -443,9 +447,21 @@ export class DashboardComponent implements OnInit {
   generatePlan(): void {
     this.generating = true;
     this.planService.generatePlan().subscribe({
-      next: () => {
+      next: (res) => {
+        this.weeklyPlan = res.plan || [];
         this.generating = false;
-        this.loadProgress();
+        this.loadProgress(); // Refresh stats
+
+        // Open the dialog with today's agenda
+        const todayPlan = this.getTodayPlan();
+        if (todayPlan) {
+          this.dialog.open(PlanDialogComponent, {
+            data: todayPlan,
+            width: '600px',
+            maxHeight: '90vh'
+          });
+        }
+
         this.snackBar.open('Plan generated successfully!', 'Close', { duration: 3000 });
       },
       error: () => {
@@ -453,6 +469,12 @@ export class DashboardComponent implements OnInit {
         this.snackBar.open('Failed to generate plan', 'Close', { duration: 3000 });
       }
     });
+  }
+
+  getTodayPlan(): DayPlan | undefined {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const today = days[new Date().getDay()];
+    return this.weeklyPlan.find(d => d.day === today);
   }
 
   getUserFirstName(): string {

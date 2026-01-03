@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { body, param } from 'express-validator';
-import { generatePlan, getWeeklyPlan, getDayPlan, markExerciseComplete, markMealConsumed, getProgress } from '../controllers/planController';
+import { generatePlan, getWeeklyPlan, getDayPlan, markExerciseComplete, markMealConsumed, getProgress, updateMeal } from '../controllers/planController';
 import { authenticate } from '../middleware/auth';
 import { validateRequest } from '../middleware/validateRequest';
 
@@ -28,6 +28,13 @@ router.post('/meal/consume', authenticate, [
   body('mealId').notEmpty().withMessage('Meal ID is required'),
   validateRequest
 ], markMealConsumed);
+
+router.put('/meal', authenticate, [
+  body('day').isIn(validDays).withMessage('Invalid day'),
+  body('mealId').notEmpty().withMessage('Meal ID is required'),
+  body('updates').isObject().withMessage('Updates must be an object'),
+  validateRequest
+], updateMeal);
 
 router.get('/progress', authenticate, getProgress);
 

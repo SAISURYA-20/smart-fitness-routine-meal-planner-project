@@ -105,8 +105,8 @@ export const markExerciseComplete = async (req: Request, res: Response, next: Ne
     }
 
     const plan = plans[0];
-    const completedStatus: CompletedStatus = typeof plan.completed_status === 'string' 
-      ? JSON.parse(plan.completed_status) 
+    const completedStatus: CompletedStatus = typeof plan.completed_status === 'string'
+      ? JSON.parse(plan.completed_status)
       : plan.completed_status;
 
     // Toggle: if already completed, remove it; otherwise add it
@@ -143,8 +143,8 @@ export const markMealConsumed = async (req: Request, res: Response, next: NextFu
     }
 
     const plan = plans[0];
-    const completedStatus: CompletedStatus = typeof plan.completed_status === 'string' 
-      ? JSON.parse(plan.completed_status) 
+    const completedStatus: CompletedStatus = typeof plan.completed_status === 'string'
+      ? JSON.parse(plan.completed_status)
       : plan.completed_status;
 
     // Toggle: if already consumed, remove it; otherwise add it
@@ -183,17 +183,17 @@ export const getProgress = async (req: Request, res: Response, next: NextFunctio
     const progress = plans.map(plan => {
       const exercises = typeof plan.exercises === 'string' ? JSON.parse(plan.exercises) : plan.exercises;
       const meals = typeof plan.meals === 'string' ? JSON.parse(plan.meals) : plan.meals;
-      const completedStatus: CompletedStatus = typeof plan.completed_status === 'string' 
-        ? JSON.parse(plan.completed_status) 
+      const completedStatus: CompletedStatus = typeof plan.completed_status === 'string'
+        ? JSON.parse(plan.completed_status)
         : plan.completed_status;
 
       const totalExercises = exercises.length;
       const completedExercises = completedStatus.exercises.length;
-      const exerciseProgress = totalExercises > 0 ? (completedExercises / totalExercises) * 100 : 0;
+      const exerciseProgress = totalExercises > 0 ? (completedExercises / totalExercises) * 100 : 100;
 
       const totalMeals = meals.length;
       const consumedMeals = completedStatus.meals.length;
-      const mealProgress = totalMeals > 0 ? (consumedMeals / totalMeals) * 100 : 0;
+      const mealProgress = totalMeals > 0 ? (consumedMeals / totalMeals) * 100 : 100;
 
       const consumedCalories = meals
         .filter((m: any) => completedStatus.meals.includes(m.id))
@@ -224,6 +224,42 @@ export const getProgress = async (req: Request, res: Response, next: NextFunctio
       progress,
       summary: { overallExerciseProgress, overallMealProgress, targetCalories }
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateMeal = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const userId = req.user?.userId;
+    const { day, mealId, updates } = req.body;
+
+    const [rows] = await pool.query<RowDataPacket[]>(
+      'SELECT meals FROM workout_meal_plans WHERE user_id = ? AND day = ?',
+      [userId, day]
+    );
+
+    if (rows.length === 0) {
+      throw new AppError('Plan not found for this day', 404);
+    }
+
+    let meals = rows[0].meals as any[]; // parsed automatically if JSON column, or need JSON.parse
+    if (typeof meals === 'string') meals = JSON.parse(meals);
+
+    const mealIndex = meals.findIndex((m: any) => m.id === mealId);
+    if (mealIndex === -1) {
+      throw new AppError('Meal not found', 404);
+    }
+
+    // Update meal fields
+    meals[mealIndex] = { ...meals[mealIndex], ...updates };
+
+    await pool.query(
+      'UPDATE workout_meal_plans SET meals = ? WHERE user_id = ? AND day = ?',
+      [JSON.stringify(meals), userId, day]
+    );
+
+    res.json({ message: 'Meal updated successfully', meals });
   } catch (error) {
     next(error);
   }

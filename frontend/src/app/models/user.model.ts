@@ -49,6 +49,7 @@ export interface DayPlan {
   day: string;
   exercises: Exercise[];
   meals: Meal[];
+  schedule: ScheduleItem[];
   completed_status: CompletedStatus;
 }
 
@@ -69,3 +70,15 @@ export interface ProgressSummary {
   overallMealProgress: number;
   targetCalories: number;
 }
+
+
+export interface ScheduleItem {
+  time: string;
+  activity: string;
+  detail: string;
+  type: 'meal' | 'workout' | 'other';
+}
+
+
+
+

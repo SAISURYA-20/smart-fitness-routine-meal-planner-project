@@ -5,6 +5,8 @@ import pool from '../config/database';
 import { AppError } from '../middleware/errorHandler';
 import { User } from '../types';
 import { RowDataPacket, ResultSetHeader } from 'mysql2';
+import { generateWeeklyPlan } from '../utils/planGenerator';
+import { CompletedStatus } from '../types';
 
 export const register = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
@@ -15,6 +17,10 @@ export const register = async (req: Request, res: Response, next: NextFunction):
       throw new AppError('Email already registered', 400);
     }
 
+    if (!name || !age || !gender || !height || !weight || !goal) {
+      throw new AppError('All profile fields are required', 400);
+    }
+
     const hashedPassword = await bcrypt.hash(password, 12);
     const userRole = role === 'trainer' || role === 'admin' ? role : 'user';
     const userGoal = goal || 'maintenance';
@@ -23,14 +29,14 @@ export const register = async (req: Request, res: Response, next: NextFunction):
       `INSERT INTO users (email, password, name, age, gender, height, weight, goal, role) 
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
-        email, 
-        hashedPassword, 
-        name, 
-        age || null, 
-        gender || null, 
-        height || null, 
-        weight || null, 
-        userGoal, 
+        email,
+        hashedPassword,
+        name,
+        age || null,
+        gender || null,
+        height || null,
+        weight || null,
+        userGoal,
         userRole
       ]
     );
@@ -44,11 +50,11 @@ export const register = async (req: Request, res: Response, next: NextFunction):
     res.status(201).json({
       message: 'User registered successfully',
       token,
-      user: { 
-        id: result.insertId, 
-        email, 
-        name, 
-        role: userRole, 
+      user: {
+        id: result.insertId,
+        email,
+        name,
+        role: userRole,
         goal: userGoal,
         age: age || null,
         gender: gender || null,
@@ -125,10 +131,35 @@ export const updateProfile = async (req: Request, res: Response, next: NextFunct
     const userId = req.user?.userId;
     const { name, age, gender, height, weight, goal } = req.body;
 
+    if (!name || !age || !gender || !height || !weight || !goal) {
+      throw new AppError('All profile fields are required', 400);
+    }
+
+    // Check if goal has changed
+    const [currentUser] = await pool.query<RowDataPacket[]>('SELECT goal FROM users WHERE id = ?', [userId]);
+    const oldGoal = currentUser[0]?.goal;
+
     await pool.query(
       `UPDATE users SET name = ?, age = ?, gender = ?, height = ?, weight = ?, goal = ? WHERE id = ?`,
       [name, age || null, gender || null, height || null, weight || null, goal, userId]
     );
+
+    // If goal changed, regenerate plan
+    if (goal && oldGoal && goal !== oldGoal) {
+      const weeklyPlan = generateWeeklyPlan(goal);
+
+      // Delete existing plan
+      await pool.query('DELETE FROM workout_meal_plans WHERE user_id = ?', [userId]);
+
+      // Insert new plan
+      for (const dayPlan of weeklyPlan) {
+        const completedStatus: CompletedStatus = { exercises: [], meals: [] };
+        await pool.query(
+          'INSERT INTO workout_meal_plans (user_id, day, exercises, meals, schedule, completed_status) VALUES (?, ?, ?, ?, ?, ?)',
+          [userId, dayPlan.day, JSON.stringify(dayPlan.exercises), JSON.stringify(dayPlan.meals), JSON.stringify(dayPlan.schedule), JSON.stringify(completedStatus)]
+        );
+      }
+    }
 
     const [users] = await pool.query<RowDataPacket[]>(
       'SELECT id, email, name, age, gender, height, weight, goal, role FROM users WHERE id = ?',

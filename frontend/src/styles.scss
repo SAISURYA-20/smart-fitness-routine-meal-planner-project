@@ -1,16 +1,7 @@
 @use '@angular/material' as mat;
-
-$primary-palette: mat.define-palette(mat.$deep-purple-palette, 600);
-$accent-palette: mat.define-palette(mat.$teal-palette, A400);
-$warn-palette: mat.define-palette(mat.$red-palette);
-
-$theme: mat.define-light-theme((
-  color: (primary: $primary-palette, accent: $accent-palette, warn: $warn-palette),
-  typography: mat.define-typography-config(),
-  density: 0
-));
-
-@include mat.all-component-themes($theme);
+/* Use prebuilt theme to avoid SASS mixin errors in v18 */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@include mat.core();
 
 :root {
   --primary: #6366f1;
@@ -23,8 +14,16 @@ $theme: mat.define-light-theme((
   --border: #e2e8f0;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -33,4 +32,6 @@ body {
   line-height: 1.6;
 }
 
-mat-form-field { width: 100%; }
+mat-form-field {
+  width: 100%;
+}
