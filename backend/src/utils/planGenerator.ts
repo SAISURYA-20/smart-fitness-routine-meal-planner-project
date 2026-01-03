@@ -33,34 +33,34 @@ const exerciseDatabase: Record<string, Exercise[]> = {
 
 const mealDatabase: Record<string, Meal[]> = {
   weight_loss: [
-    { id: 'wlm1', name: 'Greek Yogurt with Berries', type: 'breakfast', calories: 250, protein: 15, carbs: 30, fat: 8, ingredients: ['Greek yogurt', 'Mixed berries', 'Honey'] },
-    { id: 'wlm2', name: 'Egg White Omelette', type: 'breakfast', calories: 200, protein: 20, carbs: 5, fat: 10, ingredients: ['Egg whites', 'Spinach', 'Tomatoes', 'Mushrooms'] },
-    { id: 'wlm3', name: 'Grilled Chicken Salad', type: 'lunch', calories: 350, protein: 35, carbs: 15, fat: 15, ingredients: ['Chicken breast', 'Mixed greens', 'Cucumber', 'Olive oil dressing'] },
-    { id: 'wlm4', name: 'Quinoa Buddha Bowl', type: 'lunch', calories: 400, protein: 18, carbs: 50, fat: 12, ingredients: ['Quinoa', 'Chickpeas', 'Roasted vegetables', 'Tahini'] },
-    { id: 'wlm5', name: 'Baked Salmon with Vegetables', type: 'dinner', calories: 400, protein: 35, carbs: 20, fat: 18, ingredients: ['Salmon fillet', 'Broccoli', 'Asparagus', 'Lemon'] },
-    { id: 'wlm6', name: 'Turkey Stir-Fry', type: 'dinner', calories: 380, protein: 30, carbs: 25, fat: 15, ingredients: ['Ground turkey', 'Bell peppers', 'Zucchini', 'Soy sauce'] },
-    { id: 'wlm7', name: 'Apple with Almond Butter', type: 'snack', calories: 180, protein: 5, carbs: 20, fat: 10, ingredients: ['Apple', 'Almond butter'] },
-    { id: 'wlm8', name: 'Celery with Hummus', type: 'snack', calories: 100, protein: 4, carbs: 10, fat: 5, ingredients: ['Celery sticks', 'Hummus'] }
+    { id: 'wlm1', name: 'Oats Idli with Mint Chutney', type: 'breakfast', calories: 220, protein: 8, carbs: 35, fat: 4, ingredients: ['Oats', 'Curd', 'Mint', 'Green chilies'] },
+    { id: 'wlm2', name: 'Ragi Dosa', type: 'breakfast', calories: 250, protein: 6, carbs: 40, fat: 5, ingredients: ['Ragi flour', 'Urad dal', 'Onions'] },
+    { id: 'wlm3', name: 'Sambar Rice with Cucumber Salad', type: 'lunch', calories: 400, protein: 12, carbs: 60, fat: 10, ingredients: ['Rice', 'Toor dal', 'Mixed vegetables', 'Cucumber'] },
+    { id: 'wlm4', name: 'Quinoa lemon rice', type: 'lunch', calories: 350, protein: 10, carbs: 50, fat: 8, ingredients: ['Quinoa', 'Lemon', 'Peanuts', 'Curry leaves'] },
+    { id: 'wlm5', name: 'Grilled Fish with Steamed Veggies', type: 'dinner', calories: 350, protein: 30, carbs: 10, fat: 15, ingredients: ['Fish', 'Beans', 'Carrots', 'Pepper'] },
+    { id: 'wlm6', name: 'Millet Upma', type: 'dinner', calories: 300, protein: 8, carbs: 45, fat: 7, ingredients: ['Foxtail millet', 'Carrots', 'Peas', 'Ginger'] },
+    { id: 'wlm7', name: 'Masala Buttermilk', type: 'snack', calories: 60, protein: 2, carbs: 5, fat: 3, ingredients: ['Curd', 'Ginger', 'Curry leaves', 'Asafoetida'] },
+    { id: 'wlm8', name: 'Sprouted Moong Salad', type: 'snack', calories: 120, protein: 8, carbs: 18, fat: 1, ingredients: ['Moong sprouts', 'Tomato', 'Lemon juice'] }
   ],
   muscle_gain: [
-    { id: 'mgm1', name: 'Protein Pancakes', type: 'breakfast', calories: 500, protein: 35, carbs: 50, fat: 15, ingredients: ['Protein powder', 'Oats', 'Eggs', 'Banana', 'Maple syrup'] },
-    { id: 'mgm2', name: 'Steak and Eggs', type: 'breakfast', calories: 600, protein: 45, carbs: 5, fat: 40, ingredients: ['Sirloin steak', 'Eggs', 'Avocado'] },
-    { id: 'mgm3', name: 'Chicken Rice Bowl', type: 'lunch', calories: 650, protein: 45, carbs: 70, fat: 15, ingredients: ['Chicken breast', 'Brown rice', 'Black beans', 'Salsa'] },
-    { id: 'mgm4', name: 'Tuna Pasta', type: 'lunch', calories: 600, protein: 40, carbs: 65, fat: 18, ingredients: ['Tuna', 'Whole wheat pasta', 'Olive oil', 'Vegetables'] },
-    { id: 'mgm5', name: 'Beef Stir-Fry with Rice', type: 'dinner', calories: 700, protein: 50, carbs: 60, fat: 25, ingredients: ['Beef strips', 'Rice', 'Broccoli', 'Teriyaki sauce'] },
-    { id: 'mgm6', name: 'Grilled Chicken with Sweet Potato', type: 'dinner', calories: 650, protein: 45, carbs: 55, fat: 20, ingredients: ['Chicken thighs', 'Sweet potato', 'Green beans'] },
-    { id: 'mgm7', name: 'Protein Shake', type: 'snack', calories: 300, protein: 30, carbs: 25, fat: 8, ingredients: ['Protein powder', 'Milk', 'Banana', 'Peanut butter'] },
-    { id: 'mgm8', name: 'Cottage Cheese with Nuts', type: 'snack', calories: 250, protein: 20, carbs: 10, fat: 15, ingredients: ['Cottage cheese', 'Mixed nuts', 'Honey'] }
+    { id: 'mgm1', name: 'Egg Dosa (2 pcs)', type: 'breakfast', calories: 500, protein: 20, carbs: 50, fat: 18, ingredients: ['Dosa batter', 'Eggs', 'Pepper', 'Oil'] },
+    { id: 'mgm2', name: 'Paneer Paratha with Curd', type: 'breakfast', calories: 550, protein: 22, carbs: 55, fat: 25, ingredients: ['Whole wheat flour', 'Paneer', 'Spices', 'Curd'] },
+    { id: 'mgm3', name: 'Chicken Chettinad with Brown Rice', type: 'lunch', calories: 700, protein: 45, carbs: 65, fat: 25, ingredients: ['Chicken', 'Brown Rice', 'Coconut', 'Spices'] },
+    { id: 'mgm4', name: 'Soya Chunks Biryani', type: 'lunch', calories: 650, protein: 35, carbs: 70, fat: 18, ingredients: ['Basmati Rice', 'Soya chunks', 'Mint', 'Yogurt'] },
+    { id: 'mgm5', name: 'Fish Curry with Chapati', type: 'dinner', calories: 600, protein: 40, carbs: 50, fat: 20, ingredients: ['Fish', 'Wheat flour', 'Tamarind', 'Spices'] },
+    { id: 'mgm6', name: 'Egg Curry with Appam', type: 'dinner', calories: 550, protein: 25, carbs: 60, fat: 18, ingredients: ['Eggs', 'Rice flour', 'Coconut milk'] },
+    { id: 'mgm7', name: 'Sundal (Chickpeas)', type: 'snack', calories: 250, protein: 12, carbs: 35, fat: 5, ingredients: ['Chickpeas', 'Coconut', 'Mustard seeds'] },
+    { id: 'mgm8', name: 'Peanut Chikki', type: 'snack', calories: 300, protein: 10, carbs: 25, fat: 18, ingredients: ['Peanuts', 'Jaggery'] }
   ],
   maintenance: [
-    { id: 'mtm1', name: 'Oatmeal with Fruits', type: 'breakfast', calories: 350, protein: 12, carbs: 55, fat: 8, ingredients: ['Oats', 'Milk', 'Banana', 'Blueberries', 'Honey'] },
-    { id: 'mtm2', name: 'Avocado Toast with Eggs', type: 'breakfast', calories: 400, protein: 18, carbs: 35, fat: 22, ingredients: ['Whole grain bread', 'Avocado', 'Eggs', 'Cherry tomatoes'] },
-    { id: 'mtm3', name: 'Mediterranean Wrap', type: 'lunch', calories: 450, protein: 25, carbs: 45, fat: 18, ingredients: ['Whole wheat wrap', 'Grilled chicken', 'Feta', 'Olives', 'Lettuce'] },
-    { id: 'mtm4', name: 'Vegetable Soup with Bread', type: 'lunch', calories: 380, protein: 15, carbs: 50, fat: 12, ingredients: ['Mixed vegetables', 'Vegetable broth', 'Whole grain bread'] },
-    { id: 'mtm5', name: 'Grilled Fish with Quinoa', type: 'dinner', calories: 500, protein: 40, carbs: 40, fat: 18, ingredients: ['White fish', 'Quinoa', 'Roasted vegetables', 'Lemon herb sauce'] },
-    { id: 'mtm6', name: 'Chicken Stir-Fry', type: 'dinner', calories: 480, protein: 35, carbs: 45, fat: 16, ingredients: ['Chicken breast', 'Mixed vegetables', 'Brown rice', 'Soy sauce'] },
-    { id: 'mtm7', name: 'Greek Yogurt Parfait', type: 'snack', calories: 200, protein: 15, carbs: 25, fat: 5, ingredients: ['Greek yogurt', 'Granola', 'Mixed berries'] },
-    { id: 'mtm8', name: 'Trail Mix', type: 'snack', calories: 180, protein: 6, carbs: 15, fat: 12, ingredients: ['Almonds', 'Cashews', 'Dried cranberries', 'Dark chocolate chips'] }
+    { id: 'mtm1', name: 'Idli with Sambar', type: 'breakfast', calories: 300, protein: 10, carbs: 55, fat: 2, ingredients: ['Rice', 'Urad dal', 'Toor dal', 'Vegetables'] },
+    { id: 'mtm2', name: 'Pongal with Chutney', type: 'breakfast', calories: 400, protein: 8, carbs: 60, fat: 15, ingredients: ['Rice', 'Moong dal', 'Ghee', 'Peppercorns'] },
+    { id: 'mtm3', name: 'Curd Rice with Pomegranate', type: 'lunch', calories: 350, protein: 8, carbs: 55, fat: 10, ingredients: ['Rice', 'Curd', 'Pomegranate', 'Mustard seeds'] },
+    { id: 'mtm4', name: 'Lemon Rice with Papad', type: 'lunch', calories: 400, protein: 6, carbs: 65, fat: 12, ingredients: ['Rice', 'Lemon', 'Peanuts', 'Turmeric'] },
+    { id: 'mtm5', name: 'Chapati with Mixed Veg Curry', type: 'dinner', calories: 450, protein: 12, carbs: 60, fat: 15, ingredients: ['Wheat flour', 'Carrot', 'Beans', 'Potato'] },
+    { id: 'mtm6', name: 'Dosa with Tomato Chutney', type: 'dinner', calories: 400, protein: 8, carbs: 65, fat: 10, ingredients: ['Rice batter', 'Tomatoes', 'Red chilies'] },
+    { id: 'mtm7', name: 'Filter Coffee', type: 'snack', calories: 100, protein: 2, carbs: 12, fat: 4, ingredients: ['Coffee powder', 'Milk', 'Sugar'] },
+    { id: 'mtm8', name: 'Banana Chips (Small Portion)', type: 'snack', calories: 150, protein: 1, carbs: 25, fat: 8, ingredients: ['Raw banana', 'Coconut oil', 'Salt'] }
   ]
 };
 
