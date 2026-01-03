@@ -49,6 +49,7 @@ export const initDatabase = async (): Promise<void> => {
         day ENUM('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday') NOT NULL,
         exercises JSON,
         meals JSON,
+        schedule JSON,
         completed_status JSON,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -56,6 +57,14 @@ export const initDatabase = async (): Promise<void> => {
         UNIQUE KEY unique_user_day (user_id, day)
       )
     `);
+
+    // Check if schedule column exists, if not add it (for migration)
+    try {
+      await pool.query('SELECT schedule FROM workout_meal_plans LIMIT 1');
+    } catch (error) {
+      console.log('Adding schedule column to workout_meal_plans table...');
+      await pool.query('ALTER TABLE workout_meal_plans ADD COLUMN schedule JSON AFTER meals');
+    }
 
     console.log('Database initialized successfully');
   } catch (error) {

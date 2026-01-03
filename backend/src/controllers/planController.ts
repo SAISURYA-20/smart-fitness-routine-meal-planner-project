@@ -105,8 +105,8 @@ export const markExerciseComplete = async (req: Request, res: Response, next: Ne
     }
 
     const plan = plans[0];
-    const completedStatus: CompletedStatus = typeof plan.completed_status === 'string' 
-      ? JSON.parse(plan.completed_status) 
+    const completedStatus: CompletedStatus = typeof plan.completed_status === 'string'
+      ? JSON.parse(plan.completed_status)
       : plan.completed_status;
 
     // Toggle: if already completed, remove it; otherwise add it
@@ -143,8 +143,8 @@ export const markMealConsumed = async (req: Request, res: Response, next: NextFu
     }
 
     const plan = plans[0];
-    const completedStatus: CompletedStatus = typeof plan.completed_status === 'string' 
-      ? JSON.parse(plan.completed_status) 
+    const completedStatus: CompletedStatus = typeof plan.completed_status === 'string'
+      ? JSON.parse(plan.completed_status)
       : plan.completed_status;
 
     // Toggle: if already consumed, remove it; otherwise add it
@@ -183,17 +183,17 @@ export const getProgress = async (req: Request, res: Response, next: NextFunctio
     const progress = plans.map(plan => {
       const exercises = typeof plan.exercises === 'string' ? JSON.parse(plan.exercises) : plan.exercises;
       const meals = typeof plan.meals === 'string' ? JSON.parse(plan.meals) : plan.meals;
-      const completedStatus: CompletedStatus = typeof plan.completed_status === 'string' 
-        ? JSON.parse(plan.completed_status) 
+      const completedStatus: CompletedStatus = typeof plan.completed_status === 'string'
+        ? JSON.parse(plan.completed_status)
         : plan.completed_status;
 
       const totalExercises = exercises.length;
       const completedExercises = completedStatus.exercises.length;
-      const exerciseProgress = totalExercises > 0 ? (completedExercises / totalExercises) * 100 : 0;
+      const exerciseProgress = totalExercises > 0 ? (completedExercises / totalExercises) * 100 : 100;
 
       const totalMeals = meals.length;
       const consumedMeals = completedStatus.meals.length;
-      const mealProgress = totalMeals > 0 ? (consumedMeals / totalMeals) * 100 : 0;
+      const mealProgress = totalMeals > 0 ? (consumedMeals / totalMeals) * 100 : 100;
 
       const consumedCalories = meals
         .filter((m: any) => completedStatus.meals.includes(m.id))
